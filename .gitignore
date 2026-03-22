@@ -1,0 +1,8 @@
+# Sensitive files first — most important!!
+sample.txt
+.env
+
+# Python auto-generated files
+__pycache__/
+
+# OS files
