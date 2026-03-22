@@ -5,9 +5,14 @@ load_dotenv()
 client = anthropic.Anthropic(api_key=os.environ.get("ANTHROPIC_API_KEY"))
 filename = input('Enter filename to summarise:')
 
+try:
+    with open(filename, 'r',encoding='utf-8') as file:
+        content = file.read()
+except FileNotFoundError:
+    print(f'Sorry- could not find {filename}')
+    print(f'Please check the filename and try again')
+    exit()
 
-with open(filename, 'r',encoding='utf-8') as file:
-    content = file.read()
 
 print('\nSending to Claude for summary...')
 
