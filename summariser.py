@@ -28,3 +28,31 @@ response = client.messages.create(
 
 print('\n📋 Summary')
 print(response.content[0].text)
+
+print('\nYou can now ask questions about this document.')
+print('Type quit to exit')
+
+doc_history = [
+    {'role': 'user', 'content': f'Here is a document:\n\n{content}'},
+    {'role': 'assistant', 'content': response.content[0].text}
+]
+
+while True:
+    question = input('\nYour question:')
+
+    if question.lower() == 'quit':
+        print("Goodbye!")
+        break
+    doc_history.append({'role': 'user', 'content': question})
+
+    follow_up = client.messages.create(
+        model = 'claude-opus-4-6',
+        max_tokens =1024,
+        messages=doc_history
+
+    )
+
+    answer = follow_up.content[0].text
+    print('\nClaude:', answer)
+
+    doc_history.append({'role':'assistant', 'content': answer})
