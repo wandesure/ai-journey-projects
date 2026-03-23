@@ -1,3 +1,4 @@
+# Built by Wande — Week 3 of AI Skills Journey — March 2026
 import anthropic
 from dotenv import load_dotenv
 load_dotenv()

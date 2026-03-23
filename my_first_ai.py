@@ -1,4 +1,4 @@
-# This script calls the Claude API and answers work-related questions
+# Built by Wande-This script calls the Claude API and answers work-related questions
 import anthropic
 import os
 from dotenv import load_dotenv
