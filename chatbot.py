@@ -1,4 +1,5 @@
 # Built by Wande — Week 3 of AI Skills Journey — March 2026
+# A chat bot with Memory
 
 import anthropic
 import os
