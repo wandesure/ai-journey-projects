@@ -39,3 +39,6 @@ while True:
     )
     print(f'[Message {len(conversation_history)//2} of conversation]')
 
+    if len(conversation_history) // 2 % 5 == 0:
+        print("💡 Tip: Type 'quit' to exit anytime")
+
