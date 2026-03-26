@@ -21,14 +21,15 @@ while True:
 
     print("\nClaude says:")
     print(message.content[0].text)
-    another = input("\nDo you have another question? (yes/no)")
+    while True:
+        another = input("\nDo you have another question? (yes/no) ")
+        
+        if another.lower() == "yes":
+            break
+        elif another.lower() == "no":
+            print("\nGood luck! 👋")
+            exit()
+        else:
+            print("Please type yes or no — try again!")
+        
     
-    if another.lower() == "yes":
-        continue
-    elif another.lower() == "no":
-        print("\nGood luck! 👋")
-        break
-    else:
-        print("Please type yes or no")
-    
- 
