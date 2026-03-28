@@ -31,7 +31,7 @@ def run_calculator(expression):
     except Exception as e:
         return f"Error:{e}"
     
-user_message = input("Ask Claude a math questin:")
+user_message = input("Ask Claude a math question:")
 
 response = client.messages.create(
     model = "claude-opus-4-6",
