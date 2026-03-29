@@ -51,16 +51,27 @@ response = client.messages.create(
 print('\n📋 Compliance Analysis:')
 print(response.content[0].text)
 
+print('\nYou can now ask follow-up questions about the compliance gaps.')
+print('Type quit to exit')
 
+comp_history = [
+    {'role': 'user', 'content': f'Analyse this policy:\n\n{policy_text}'},
+    {'role': 'assistant', 'content': response.content[0].text}
+]
 
-
-
-
-
-
-
-
-
-
-
+while True:
+    question = input('\nYour question: ')
+    if question.lower() == 'quit':
+        print('Goodbye!')
+        break
+    comp_history.append({'role': 'user', 'content': question})
+    follow_up = client.messages.create(
+        model='claude-opus-4-6',
+        max_tokens=1024,
+        system=system_prompt,
+        messages=comp_history
+    )
+    answer = follow_up.content[0].text
+    print('\nClaude:', answer)
+    comp_history.append({'role': 'assistant', 'content': answer})
 
