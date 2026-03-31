@@ -20,6 +20,15 @@ knowledge to production-ready applications in 4 weeks.
 - **summariser.py** — AI document summariser with 
   follow-up Q&A capability
 
+- **calculator_agent.py** — AI agent with calculator tool
+
+- **multi_tool_agent.py** — Multi-tool agent with 3 tools and router function
+- **compliance_checker.py** — AI security compliance analyser with follow-up Q&A
+
+- **search_agent.py** — Agent with real-time web search capability
+
+- **super_agent.py** — Super agent combining all four tools
+
 ## 🛠️ Skills Used
 Python | Anthropic Claude API | Prompt Engineering | 
 System Prompts | Conversation Memory | File Processing | 
