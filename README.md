@@ -3,7 +3,7 @@
 📍 Calgary, Canada | 🐙 github.com/wandesure
 
 A collection of AI-powered Python projects built from zero 
-knowledge to production-ready applications in 4 weeks.
+knowledge to production-ready applications in 5 weeks.
 
 ## 🚀 Projects
 
@@ -19,20 +19,17 @@ knowledge to production-ready applications in 4 weeks.
   support
 - **summariser.py** — AI document summariser with 
   follow-up Q&A capability
-
 - **calculator_agent.py** — AI agent with calculator tool
-
 - **multi_tool_agent.py** — Multi-tool agent with 3 tools and router function
 - **compliance_checker.py** — AI security compliance analyser with follow-up Q&A
-
 - **search_agent.py** — Agent with real-time web search capability
-
 - **super_agent.py** — Super agent combining all four tools
 
 ## 🛠️ Skills Used
 Python | Anthropic Claude API | Prompt Engineering | 
 System Prompts | Conversation Memory | File Processing | 
 Error Handling | Environment Variables | dotenv Security
+Tool Use | AI Agents | Web APIs | Security Compliance Analysis
 
 ## 📈 Journey
 Built during a structured 40-week AI Skills programme
