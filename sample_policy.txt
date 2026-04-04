@@ -1,0 +1,23 @@
+ACME Corporation Security Policy
+
+Password Requirements:
+All employees must use passwords of at least 12 characters.
+Passwords must contain uppercase letters, lowercase letters, numbers and special characters.
+Passwords must be changed every 60 days.
+Employees must never share passwords with anyone including managers.
+Multi-factor authentication is mandatory for all remote access.
+
+Data Classification:
+All company data must be classified as Public, Internal, or Confidential.
+Confidential data must be encrypted at rest and in transit.
+Confidential data must not be stored on personal devices.
+
+Incident Response:
+All security incidents must be reported within 24 hours.
+The security team must be notified immediately for any data breach.
+Employees must not attempt to investigate incidents themselves.
+
+Access Control:
+Access to systems must follow the principle of least privilege.
+User accounts must be reviewed every quarter.
+Terminated employees must have access revoked within 24 hours.
