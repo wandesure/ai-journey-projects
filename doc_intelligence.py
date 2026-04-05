@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 load_dotenv()
 import chromadb
 from sentence_transformers import SentenceTransformer
+from pypdf import PdfReader
 
 client = anthropic.Anthropic(api_key=os.environ.get("ANTHROPIC_API_KEY"))
 
@@ -23,8 +24,23 @@ def split_into_chunks(text, chunk_size=500, overlap=50):
         start = end - overlap
     return chunks
 
+# --- Read PDF document ---
+def read_pdf(file_path):
+    reader = PdfReader(file_path)
+    text = ""
+    for page in reader.pages:
+        text += page.extract_text()
+    return text
+
+
 # --- Add document to ChromaDB ---
-def add_document(text, doc_name):
+def add_document(file_path, doc_name):
+    if file_path.endswith(".pdf"):
+        text = read_pdf(file_path)
+    else:
+        with open(file_path, "r") as f:
+            text = f.read()
+    
     chunks = split_into_chunks(text)
     for i, chunk in enumerate(chunks):
         embedding = embedding_model.encode(chunk).tolist()
@@ -34,9 +50,8 @@ def add_document(text, doc_name):
             ids=[f"{doc_name}_chunk_{i}"]
         )
     print(f"Added {len(chunks)} chunks from {doc_name} to ChromaDB!!")
-
-    # --- Search ChromaDB for relevant chunks ---
-def search_relevant_chunks(question, n_results=2):
+# --- Search ChromaDB for relevant chunks ---
+def search_relevant_chunks(question, n_results=3):
     question_embedding = embedding_model.encode(question).tolist()
     results = collection.query(
         query_embeddings=[question_embedding],
@@ -74,10 +89,10 @@ print("🤖 AI Document Intelligence Assistant")
 print("======================================")
 
 # Load and index the document
-with open("sample_policy.txt", "r") as f:
-    document = f.read()
 
-add_document(document, "security_policy")
+
+add_document("sample_policy.txt", "security_policy")
+add_document("hr_policy.txt", "hr_policy")
 
 print("\nDocument indexed and ready!!")
 print("Ask questions about the document or type 'quit' to exit\n")
