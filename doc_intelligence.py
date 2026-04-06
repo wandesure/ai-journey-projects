@@ -8,6 +8,67 @@ from pypdf import PdfReader
 
 client = anthropic.Anthropic(api_key=os.environ.get("ANTHROPIC_API_KEY"))
 
+# --- Industry system prompts ---
+INDUSTRY_PROMPTS = {
+    "telecom": """You are an expert telecom compliance analyst with deep knowledge of:
+- CRTC regulations and Canadian telecom law
+- Network security and data governance
+- Privacy regulations (PIPEDA)
+- Telecom infrastructure security
+Answer questions accurately from the provided documents using telecom industry terminology.""",
+
+    "legal": """You are an expert legal analyst with deep knowledge of:
+- Contract law and analysis
+- Regulatory compliance
+- Risk and liability assessment
+- Legal document review
+Answer questions accurately from the provided documents using precise legal terminology.""",
+
+    "healthcare": """You are an expert healthcare compliance analyst with deep knowledge of:
+- HIPAA and patient privacy regulations
+- Medical data security
+- Healthcare facility compliance
+- Clinical documentation standards
+Answer questions accurately from the provided documents using healthcare terminology.""",
+
+    "hr": """You are an expert HR analyst with deep knowledge of:
+- Employment law and regulations
+- HR policies and procedures
+- Workplace compliance
+- People management best practices
+Answer questions accurately from the provided documents using HR terminology.""",
+
+    "finance": """You are an expert financial compliance analyst with deep knowledge of:
+- Financial regulations and reporting
+- Risk management frameworks
+- Audit and compliance requirements
+- Banking and investment regulations
+Answer questions accurately from the provided documents using financial terminology."""
+}
+
+# --- Industry selection ---
+def select_industry():
+    print("\nSelect your industry mode:")
+    print("1. Telecom")
+    print("2. Legal")
+    print("3. Healthcare")
+    print("4. HR")
+    print("5. Finance")
+    
+    choice = input("\nEnter number (1-5): ")
+    
+    industries = {
+        "1": "telecom",
+        "2": "legal",
+        "3": "healthcare",
+        "4": "hr",
+        "5": "finance"
+    }
+    
+    selected = industries.get(choice, "telecom")
+    print(f"\nActivating {selected.upper()} mode!!")
+    return selected
+
 # --- Initialise embedding model and vector database ---
 embedding_model = SentenceTransformer('all-MiniLM-L6-v2')
 chroma_client = chromadb.Client()
@@ -60,17 +121,18 @@ def search_relevant_chunks(question, n_results=3):
     return results['documents'][0]
 
 # --- Ask Claude with retrieved context ---
-def ask_claude(question, context_chunks):
+def ask_claude(question, context_chunks, industry="telecom"):
     context = "\n\n".join(context_chunks)
+    system_prompt = INDUSTRY_PROMPTS[industry]
     
     response = client.messages.create(
         model="claude-opus-4-6",
         max_tokens=1024,
+        system=system_prompt,
         messages=[
             {
                 "role": "user",
-                "content": f"""You are a helpful document assistant. 
-Use the following document excerpts to answer the question accurately.
+                "content": f"""Use the following document excerpts to answer the question accurately.
 
 Document excerpts:
 {context}
@@ -88,14 +150,15 @@ If the answer is not in the excerpts say so clearly."""
 print("🤖 AI Document Intelligence Assistant")
 print("======================================")
 
-# Load and index the document
-
-
+# Load and index documents
 add_document("sample_policy.txt", "security_policy")
 add_document("hr_policy.txt", "hr_policy")
 
-print("\nDocument indexed and ready!!")
-print("Ask questions about the document or type 'quit' to exit\n")
+# Select industry mode
+industry = select_industry()
+
+print("\nDocuments indexed and ready!!")
+print("Ask questions about the documents or type 'quit' to exit\n")
 
 # Conversation loop
 while True:
@@ -104,10 +167,7 @@ while True:
         print("Goodbye!!")
         break
     
-    # Search for relevant chunks
     relevant_chunks = search_relevant_chunks(question)
-    
-    # Get Claude's answer
-    answer = ask_claude(question, relevant_chunks)
+    answer = ask_claude(question, relevant_chunks, industry)
     
     print(f"\nClaude: {answer}\n")
