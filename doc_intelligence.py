@@ -171,3 +171,35 @@ while True:
     answer = ask_claude(question, relevant_chunks, industry)
     
     print(f"\nClaude: {answer}\n")
+
+# --- Ask question using LangChain RetrievalQA ---
+def ask_question(question, vectorstore, industry="telecom"):
+    system_prompt = INDUSTRY_PROMPTS[industry]
+    
+    qa_chain = RetrievalQA.from_chain_type(
+        llm=llm,
+        chain_type="stuff",
+        retriever=vectorstore.as_retriever(
+            search_kwargs={"k": 2}
+        )
+    )
+    
+    full_question = f"{system_prompt}\n\nQuestion: {question}"
+    answer = qa_chain.invoke({"query": full_question})
+    return answer["result"]
+
+# --- Ask question using LangChain RetrievalQA ---
+def ask_question(question, vectorstore, industry="telecom"):
+    system_prompt = INDUSTRY_PROMPTS[industry]
+    
+    qa_chain = RetrievalQA.from_chain_type(
+        llm=llm,
+        chain_type="stuff",
+        retriever=vectorstore.as_retriever(
+            search_kwargs={"k": 2}
+        )
+    )
+    
+    full_question = f"{system_prompt}\n\nQuestion: {question}"
+    answer = qa_chain.invoke({"query": full_question})
+    return answer["result"]
