@@ -24,12 +24,16 @@ knowledge to production-ready applications in 5 weeks.
 - **compliance_checker.py** — AI security compliance analyser with follow-up Q&A
 - **search_agent.py** — Agent with real-time web search capability
 - **super_agent.py** — Super agent combining all four tools
+- simple_rag.py — RAG system with keyword search
+- doc_intelligence.py — Document Intelligence Assistant with ChromaDB & semantic search
+- doc_intelligence_lc.py — LangChain RAG pipeline with 5 industry modes
 
 ## 🛠️ Skills Used
 Python | Anthropic Claude API | Prompt Engineering | 
 System Prompts | Conversation Memory | File Processing | 
 Error Handling | Environment Variables | dotenv Security
 Tool Use | AI Agents | Web APIs | Security Compliance Analysis
+RAG | LangChain | ChromaDB | Vector Databases | Semantic Search | Document Intelligence
 
 ## 📈 Journey
 Built during a structured 40-week AI Skills programme
