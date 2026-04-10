@@ -1,14 +1,12 @@
+setuptools
 streamlit
 anthropic
 langchain
 langchain-anthropic
 langchain-community
 langchain-text-splitters
-langchain-chroma
 chromadb
 sentence-transformers
 pypdf
 python-dotenv
 langchain-core
-numpy<2.0
-faiss-cpu
