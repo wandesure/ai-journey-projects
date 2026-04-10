@@ -8,8 +8,7 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import Chroma
 from langchain_community.embeddings import SentenceTransformerEmbeddings
 from langchain_core.documents import Document
-from langchain_community.vectorstores import FAISS
-
+from langchain_community.vectorstores import Chroma
 load_dotenv()
 
 # --- Industry prompts ---
@@ -53,10 +52,10 @@ def process_file(uploaded_file, embeddings):
         docs = [Document(page_content=content)]
 
     chunks = text_splitter.split_documents(docs)
-    vectorstore = FAISS.from_documents(chunks, embeddings)
-    return vectorstore
-    #vectorstore = Chroma.from_documents(chunks, embeddings)
+    #vectorstore = FAISS.from_documents(chunks, embeddings)
     #return vectorstore
+    vectorstore = Chroma.from_documents(chunks, embeddings)
+    return vectorstore
 
 # --- Main app ---
 st.title("AI Document Intelligence Hub")
