@@ -1,14 +1,8 @@
 import streamlit as st
 import os
-import tempfile
+from anthropic import Anthropic
 from dotenv import load_dotenv
-from langchain_anthropic import ChatAnthropic
-from langchain_community.document_loaders import PyPDFLoader
-from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_community.vectorstores import Chroma
-from langchain_community.embeddings import SentenceTransformerEmbeddings
-from langchain_core.documents import Document
-from langchain_community.vectorstores import Chroma
+
 load_dotenv()
 
 # --- Industry prompts ---
@@ -21,87 +15,76 @@ INDUSTRY_PROMPTS = {
     "Finance": "You are a financial compliance analyst with knowledge of financial regulations.",
 }
 
-# --- Initialise models ---
-@st.cache_resource
-def load_models():
-    llm = ChatAnthropic(
+def get_api_key():
+    # Try .env first (local), then Streamlit secrets (cloud)
+    key = os.environ.get("ANTHROPIC_API_KEY")
+    if key:
+        return key
+    if hasattr(st, 'secrets') and "ANTHROPIC_API_KEY" in st.secrets:
+        return st.secrets["ANTHROPIC_API_KEY"]
+    return None
+def ask_claude(question, document_text, industry):
+    client = Anthropic(api_key=get_api_key())
+    system_prompt = INDUSTRY_PROMPTS[industry]
+    context = document_text[:3000]
+
+    response = client.messages.create(
         model="claude-opus-4-6",
-        api_key=os.environ.get("ANTHROPIC_API_KEY")
-    )
-    embeddings = SentenceTransformerEmbeddings(
-        model_name="all-MiniLM-L6-v2"
-    )
-    return llm, embeddings
+        max_tokens=1024,
+        system=system_prompt,
+        messages=[{
+            "role": "user",
+            "content": f"""Use the following document to answer the question accurately.
 
-# --- Process uploaded file ---
-def process_file(uploaded_file, embeddings):
-    text_splitter = RecursiveCharacterTextSplitter(
-        chunk_size=500,
-        chunk_overlap=50
+Document:
+{context}
+
+Question: {question}
+
+Answer based only on the document. If the answer is not in the document, say so clearly."""
+        }]
     )
-
-    if uploaded_file.type == "application/pdf":
-        with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmp:
-            tmp.write(uploaded_file.read())
-            tmp_path = tmp.name
-        loader = PyPDFLoader(tmp_path)
-        docs = loader.load()
-        os.unlink(tmp_path)
-    else:
-        content = uploaded_file.read().decode("utf-8")
-        docs = [Document(page_content=content)]
-
-    chunks = text_splitter.split_documents(docs)
-    #vectorstore = FAISS.from_documents(chunks, embeddings)
-    #return vectorstore
-    vectorstore = Chroma.from_documents(chunks, embeddings)
-    return vectorstore
+    return response.content[0].text
 
 # --- Main app ---
 st.title("AI Document Intelligence Hub")
 st.write("Upload a document, select your industry, and ask questions!!")
 
-# Load models
-llm, embeddings = load_models()
-
-# Sidebar - industry selector
 st.sidebar.title("Settings")
 industry = st.sidebar.selectbox(
     "Select Industry Mode",
     list(INDUSTRY_PROMPTS.keys())
 )
-st.sidebar.write(f"Mode: {industry}")
+st.sidebar.write(f"Active mode: {industry}")
 
-# File upload
 uploaded_file = st.file_uploader(
     "Upload your document (PDF or TXT)",
     type=["txt", "pdf"]
 )
 
 if uploaded_file:
-    with st.spinner("Processing your document..."):
-        vectorstore = process_file(uploaded_file, embeddings)
-    st.success(f"Document ready: {uploaded_file.name}")
+    if uploaded_file.type == "application/pdf":
+        try:
+            import pypdf
+            reader = pypdf.PdfReader(uploaded_file)
+            document_text = ""
+            for page in reader.pages:
+                document_text += page.extract_text()
+        except Exception as e:
+            st.error(f"Error reading PDF: {e}")
+            document_text = ""
+    else:
+        document_text = uploaded_file.read().decode("utf-8")
 
-    # Question input
-    question = st.text_input("Ask a question about your document:")
+    if document_text:
+        st.success(f"Document ready: {uploaded_file.name} ({len(document_text)} characters)")
+        question = st.text_input("Ask a question about your document:")
 
-    if question:
-        with st.spinner("Finding answer..."):
-            system_prompt = INDUSTRY_PROMPTS[industry]
-            retriever = vectorstore.as_retriever(search_kwargs={"k": 2})
-            relevant_docs = retriever.invoke(question)
-            context = "\n\n".join([doc.page_content for doc in relevant_docs])
-
-            full_prompt = f"""{system_prompt}
-
-Use these document excerpts to answer accurately:
-{context}
-
-Question: {question}
-
-Answer based only on the document. If not found, say so."""
-
-            response = llm.invoke(full_prompt)
-            st.write("### Answer")
-            st.write(response.content)
+        if question:
+            with st.spinner("Finding answer..."):
+                try:
+                    answer = ask_claude(question, document_text, industry)
+                    st.write("### Answer")
+                    st.write(answer)
+                except Exception as e:
+                    st.error(f"Error: {e}")
