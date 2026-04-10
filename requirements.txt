@@ -10,3 +10,5 @@ sentence-transformers
 pypdf
 python-dotenv
 langchain-core
+numpy<2.0
+faiss-cpu
