@@ -48,7 +48,6 @@ Answer based only on the document. If the answer is not in the document, say so 
 
 # --- Main app ---
 st.title("AI Document Intelligence Hub")
-st.title("AI Document Intelligence Hub")
 st.markdown("**Built by Wande Oluwatomi** | AI Developer | Security & Compliance Specialist")
 st.markdown("---")
 st.info("This tool helps you extract insights from documents and check compliance against major security frameworks including NIST SP 800-53, ISO 27001, CIS Controls v8 and SOC 2.")
