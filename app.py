@@ -48,6 +48,11 @@ Answer based only on the document. If the answer is not in the document, say so 
 
 # --- Main app ---
 st.title("AI Document Intelligence Hub")
+st.title("AI Document Intelligence Hub")
+st.markdown("**Built by Wande Oluwatomi** | AI Developer | Security & Compliance Specialist")
+st.markdown("---")
+st.info("This tool helps you extract insights from documents and check compliance against major security frameworks including NIST SP 800-53, ISO 27001, CIS Controls v8 and SOC 2.")
+st.markdown("---")
 st.write("Upload a document, select your industry, and ask questions!!")
 
 st.sidebar.title("Settings")
@@ -137,3 +142,7 @@ When given a security policy:
                     st.error(f"Error: {e}")
         else:
             st.warning("Please paste a policy to analyse!!")
+
+# Footer
+st.markdown("---")
+st.markdown("**AI Document Intelligence Hub** | Built by Wande Oluwatomi | Powered by Claude AI")
