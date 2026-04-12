@@ -1,5 +1,14 @@
-# 🤖 AI Journey Projects
+
+# 🤖 AI Journey projects
 ### By Wande Oluwatomi
+## 🚀 Live Demo
+**AI Document Intelligence Hub** — deployed and live!!
+👉 [Try it here](https://ai-journey-projects-4njztxymtqnlphnqshqsnc.streamlit.app)
+
+- Upload any document (PDF or TXT)
+- Ask questions from the actual content
+- Check compliance against NIST, ISO 27001, CIS Controls, SOC 2
+- Works across Legal, HR, Healthcare, Finance and Telecom
 📍 Calgary, Canada | 🐙 github.com/wandesure
 
 A collection of AI-powered Python projects built from zero 
@@ -34,6 +43,7 @@ System Prompts | Conversation Memory | File Processing |
 Error Handling | Environment Variables | dotenv Security
 Tool Use | AI Agents | Web APIs | Security Compliance Analysis
 RAG | LangChain | ChromaDB | Vector Databases | Semantic Search | Document Intelligence
+Streamlit | Web Deployment | AI Product Development
 
 ## 📈 Journey
 Built during a structured 40-week AI Skills programme
