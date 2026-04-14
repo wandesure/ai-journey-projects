@@ -64,7 +64,7 @@ st.sidebar.write(f"Active mode: {industry}")
 
 
 # --- Tabs ---
-tab1, tab2 = st.tabs(["Document Q&A", "Compliance Checker"])
+tab1, tab2, tab3 = st.tabs(["Document Q&A", "Compliance Checker", "Document Summariser"])
 
 with tab1:
     uploaded_file = st.file_uploader(
@@ -141,6 +141,63 @@ When given a security policy:
                     st.error(f"Error: {e}")
         else:
             st.warning("Please paste a policy to analyse!!")
+
+with tab3:
+    st.write("### Document Summariser")
+    st.write("Upload a document to get a clean, structured summary with key points highlighted.")
+
+    summary_file = st.file_uploader(
+        "Upload your document (PDF or TXT)",
+        type=["txt", "pdf"],
+        key="summary_uploader"
+    )
+
+    if summary_file:
+        # Extract text from uploaded file
+        if summary_file.type == "application/pdf":
+            try:
+                import pypdf
+                reader = pypdf.PdfReader(summary_file)
+                summary_doc_text = ""
+                for page in reader.pages:
+                    summary_doc_text += page.extract_text()
+            except Exception as e:
+                st.error(f"Error reading PDF: {e}")
+                summary_doc_text = ""
+        else:
+            summary_doc_text = summary_file.read().decode("utf-8")
+
+        if summary_doc_text:
+            st.success(f"Document ready: {summary_file.name}")
+
+            if st.button("Generate Summary"):
+                with st.spinner("Generating structured summary..."):
+                    try:
+                        summariser_prompt = """You are an expert document analyst who creates clear, structured summaries.
+
+When summarising a document:
+1. Start with a brief executive summary (2-3 sentences)
+2. List the KEY POINTS as bullet points (use **bold** for the most important terms)
+3. Identify any ACTION ITEMS or recommendations if present
+4. Note any important dates, figures, or deadlines
+5. End with a one-line conclusion
+
+Format your response clearly with headers and bullet points for easy reading."""
+
+                        client = Anthropic(api_key=get_api_key())
+                        response = client.messages.create(
+                            model="claude-opus-4-6",
+                            max_tokens=2048,
+                            system=summariser_prompt,
+                            messages=[{
+                                "role": "user",
+                                "content": f"Please provide a structured summary of this document:\n\n{summary_doc_text[:5000]}"
+                            }]
+                        )
+                        st.write("### Summary")
+                        st.markdown(response.content[0].text)
+                    except Exception as e:
+                        st.error(f"Error: {e}")
 
 # Footer
 st.markdown("---")
