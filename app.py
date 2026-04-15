@@ -5,6 +5,121 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+# --- Custom CSS Styling ---
+st.markdown("""
+<style>
+    /* Main title styling */
+    h1 {
+        color: #2E75B6 !important;
+        border-bottom: 3px solid #2E75B6;
+        padding-bottom: 10px;
+    }
+
+    /* Tab styling */
+    .stTabs [data-baseweb="tab-list"] {
+        gap: 8px;
+        background-color: #F0F4F8;
+        padding: 10px;
+        border-radius: 10px;
+    }
+
+    .stTabs [data-baseweb="tab"] {
+        background-color: white;
+        border-radius: 8px;
+        padding: 10px 20px;
+        font-weight: 600;
+    }
+
+    .stTabs [aria-selected="true"] {
+        background-color: #2E75B6 !important;
+        color: white !important;
+    }
+
+    /* Sidebar styling */
+    [data-testid="stSidebar"] {
+        background-color: #F0F4F8;
+        border-right: 2px solid #2E75B6;
+    }
+
+    [data-testid="stSidebar"] h1 {
+        color: #2E75B6 !important;
+        border-bottom: none;
+    }
+
+    /* Button styling */
+    .stButton > button {
+        background-color: #2E75B6;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 10px 25px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .stButton > button:hover {
+        background-color: #1E5A8A;
+        box-shadow: 0 4px 12px rgba(46, 117, 182, 0.4);
+    }
+
+    /* File uploader styling */
+    [data-testid="stFileUploader"] {
+        border: 2px dashed #2E75B6;
+        border-radius: 10px;
+        padding: 20px;
+        background-color: #F0F4F8;
+    }
+
+    /* Success/Info boxes */
+    .stSuccess, .stInfo {
+        border-left: 4px solid #2E75B6;
+    }
+
+    /* Text input styling */
+    .stTextInput > div > div > input {
+        border: 2px solid #F0F4F8;
+        border-radius: 8px;
+    }
+
+    .stTextInput > div > div > input:focus {
+        border-color: #2E75B6;
+        box-shadow: 0 0 0 2px rgba(46, 117, 182, 0.2);
+    }
+
+    /* Text area styling */
+    .stTextArea > div > div > textarea {
+        border: 2px solid #F0F4F8;
+        border-radius: 8px;
+    }
+
+    .stTextArea > div > div > textarea:focus {
+        border-color: #2E75B6;
+    }
+
+    /* Footer styling */
+    footer {
+        visibility: hidden;
+    }
+
+    /* Custom footer */
+    .custom-footer {
+        text-align: center;
+        padding: 20px;
+        background: linear-gradient(90deg, #2E75B6, #1E5A8A);
+        color: white;
+        border-radius: 10px;
+        margin-top: 30px;
+    }
+
+    /* Section headers */
+    h3 {
+        color: #2E75B6 !important;
+        border-left: 4px solid #2E75B6;
+        padding-left: 10px;
+    }
+</style>
+""", unsafe_allow_html=True)
+
 # --- Industry prompts ---
 INDUSTRY_PROMPTS = {
     "General": "You are a helpful document assistant. Answer questions accurately from the provided documents.",
@@ -201,4 +316,9 @@ Format your response clearly with headers and bullet points for easy reading."""
 
 # Footer
 st.markdown("---")
-st.markdown("**AI Document Intelligence Hub** | Built by Wande Oluwatomi | Powered by Claude AI")
+st.markdown("""
+<div class="custom-footer">
+    <strong>AI Document Intelligence Hub</strong><br>
+    Built by Wande Oluwatomi | Powered by Claude AI
+</div>
+""", unsafe_allow_html=True)
