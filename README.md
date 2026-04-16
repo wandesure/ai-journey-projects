@@ -1,53 +1,72 @@
+# AI Journey Projects
 
-# 🤖 AI Journey projects
 ### By Wande Oluwatomi
-## 🚀 Live Demo
-**AI Document Intelligence Hub** — deployed and live!!
+📍 Calgary, Canada | 🐙 [github.com/wandesure](https://github.com/wandesure)
+
+A collection of AI-powered Python projects built from zero knowledge to production-ready applications in 8 weeks.
+
+## Live Demo
+
+**AI Document Intelligence Hub** — deployed and live!
+
 👉 [Try it here](https://ai-journey-projects-4njztxymtqnlphnqshqsnc.streamlit.app)
 
 - Upload any document (PDF or TXT)
 - Ask questions from the actual content
+- Summarise documents with AI-powered analysis
 - Check compliance against NIST, ISO 27001, CIS Controls, SOC 2
 - Works across Legal, HR, Healthcare, Finance and Telecom
-📍 Calgary, Canada | 🐙 github.com/wandesure
 
-A collection of AI-powered Python projects built from zero 
-knowledge to production-ready applications in 5 weeks.
+## Projects
 
-## 🚀 Projects
+| File | Description |
+|------|-------------|
+| `my_first_ai.py` | First Claude API call — the foundation of everything |
+| `study_assistant.py` | AI study tool with custom system prompts and role assignment |
+| `ai_job_helper.py` | Interactive work assistant with conversation loop and input validation |
+| `chatbot.py` | Multi-turn chatbot with full conversation memory and history management |
+| `file_reader.py` | File processing with encoding support |
+| `summariser.py` | AI document summariser with follow-up Q&A capability |
+| `calculator_agent.py` | AI agent with calculator tool |
+| `multi_tool_agent.py` | Multi-tool agent with 3 tools and router function |
+| `compliance_checker.py` | AI security compliance analyser with follow-up Q&A |
+| `search_agent.py` | Agent with real-time web search capability |
+| `super_agent.py` | Super agent combining all four tools |
+| `simple_rag.py` | RAG system with keyword search |
+| `doc_intelligence.py` | Document Intelligence Assistant with ChromaDB & semantic search |
+| `doc_intelligence_lc.py` | LangChain RAG pipeline with 5 industry modes |
+| `app.py` | Streamlit web app with Document Q&A, Summariser, and Compliance tabs |
 
-- **my_first_ai.py** — First Claude API call — 
-  the foundation of everything
-- **study_assistant.py** — AI study tool with 
-  custom system prompts and role assignment
-- **ai_job_helper.py** — Interactive work assistant 
-  with conversation loop and input validation
-- **chatbot.py** — Multi-turn chatbot with full 
-  conversation memory and history management
-- **file_reader.py** — File processing with encoding 
-  support
-- **summariser.py** — AI document summariser with 
-  follow-up Q&A capability
-- **calculator_agent.py** — AI agent with calculator tool
-- **multi_tool_agent.py** — Multi-tool agent with 3 tools and router function
-- **compliance_checker.py** — AI security compliance analyser with follow-up Q&A
-- **search_agent.py** — Agent with real-time web search capability
-- **super_agent.py** — Super agent combining all four tools
-- simple_rag.py — RAG system with keyword search
-- doc_intelligence.py — Document Intelligence Assistant with ChromaDB & semantic search
-- doc_intelligence_lc.py — LangChain RAG pipeline with 5 industry modes
+## Skills Used
 
-## 🛠️ Skills Used
-Python | Anthropic Claude API | Prompt Engineering | 
-System Prompts | Conversation Memory | File Processing | 
-Error Handling | Environment Variables | dotenv Security
-Tool Use | AI Agents | Web APIs | Security Compliance Analysis
-RAG | LangChain | ChromaDB | Vector Databases | Semantic Search | Document Intelligence
-Streamlit | Web Deployment | AI Product Development
+| Category | Technologies |
+|----------|-------------|
+| **Core** | Python, Anthropic Claude API, Prompt Engineering |
+| **AI Development** | System Prompts, Conversation Memory, Tool Use, AI Agents |
+| **RAG & Search** | LangChain, ChromaDB, Vector Databases, Semantic Search |
+| **Web & UI** | Streamlit, CSS Styling, Custom UI, Web Deployment |
+| **DevOps** | Environment Variables, dotenv Security, Error Handling |
+| **AI Tooling** | Claude Code, MCP (Model Context Protocol) |
 
-## 📈 Journey
-Built during a structured 40-week AI Skills programme
-Week 1: AI Fundamentals
-Week 2: Prompt Engineering  
-Week 3: Python + First API calls
-Week 4: Advanced apps + GitHub
+## Journey
+
+Built during a structured 40-week AI Skills programme:
+
+| Week | Focus |
+|------|-------|
+| 1 | AI Fundamentals |
+| 2 | Prompt Engineering |
+| 3 | Python + First API calls |
+| 4 | Advanced apps + GitHub |
+| 5 | AI Agents + Tool Use |
+| 6 | RAG Systems + Vector Databases |
+| 7 | Streamlit Web App + Deployment |
+| 8 | Claude Code + MCP Integration |
+
+### Week 8 Achievements
+
+- Used **Claude Code CLI** for AI-assisted development
+- Integrated **MCP Google Drive** for document access
+- Added **Document Summariser** tab to web app
+- Applied **professional CSS theme** with custom styling
+- Created **BRAIN.md** context file for project documentation
