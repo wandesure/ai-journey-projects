@@ -26,10 +26,18 @@ streamlit run app.py
 All scripts require `ANTHROPIC_API_KEY` in a `.env` file:
 ```
 ANTHROPIC_API_KEY=your_key_here
-APP_PASSWORD=your_app_password_here
 ```
 
-The web app (`app.py`) also supports Streamlit secrets for cloud deployment. For Streamlit Cloud, add both `ANTHROPIC_API_KEY` and `APP_PASSWORD` to your app secrets.
+### Web App Authentication
+
+The web app uses `streamlit-authenticator` for multi-user authentication. Credentials must be configured in Streamlit secrets (no hardcoded fallback).
+
+**Local development:**
+1. Copy `.streamlit/secrets.toml.example` to `.streamlit/secrets.toml`
+2. Update passwords using `python generate_password_hash.py`
+3. Add your `ANTHROPIC_API_KEY`
+
+**Streamlit Cloud:** Add credentials from `secrets.toml.example` to app settings.
 
 ## Architecture
 
@@ -61,13 +69,14 @@ tools = [{"name": "...", "description": "...", "input_schema": {...}}]
 Both RAG systems support 5 industry modes (Telecom, Legal, Healthcare, HR, Finance) with specialized system prompts.
 
 **Tier 4 - Web Application**
-- `app.py` - Streamlit app with password authentication and three tabs: Document Q&A, Compliance Checker, Document Summariser
+- `app.py` - Streamlit app with multi-user authentication (streamlit-authenticator) and three tabs: Document Q&A, Compliance Checker, Document Summariser
 - Analyzes policies against NIST SP 800-53, ISO 27001, CIS Controls v8, SOC 2
 
 ### Key Dependencies
 
 - `anthropic` - Claude API client (model: `claude-opus-4-6`)
 - `streamlit` - Web UI framework
+- `streamlit-authenticator` - Multi-user authentication with bcrypt password hashing
 - `chromadb` - Vector database for RAG
 - `sentence-transformers` - Embeddings (`all-MiniLM-L6-v2`)
 - `langchain*` - LangChain ecosystem for RAG pipeline

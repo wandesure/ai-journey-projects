@@ -1,7 +1,7 @@
 # Sensitive files first — most important!!
 sample.txt
 .env
-
+.streamlit/secrets.toml
 # Python auto-generated files
 __pycache__/
 

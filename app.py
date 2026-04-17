@@ -1,9 +1,44 @@
 import streamlit as st
+import streamlit_authenticator as stauth
 import os
 from anthropic import Anthropic
 from dotenv import load_dotenv
 
 load_dotenv()
+
+# --- Authentication Configuration ---
+def get_credentials():
+    """Get credentials from Streamlit secrets. Returns None if not configured."""
+    if not hasattr(st, 'secrets') or "credentials" not in st.secrets:
+        return None
+
+    credentials = dict(st.secrets["credentials"])
+    credentials["usernames"] = {
+        username: dict(data)
+        for username, data in st.secrets["credentials"]["usernames"].items()
+    }
+    return credentials
+
+def show_missing_secrets_error():
+    """Display error when secrets are not configured."""
+    st.title("AI Document Intelligence Hub")
+    st.markdown("---")
+    st.error("Authentication not configured")
+    st.markdown("""
+    ### Setup Required
+
+    Credentials must be configured in Streamlit secrets before the app can run.
+
+    **For local development:**
+    1. Copy `.streamlit/secrets.toml.example` to `.streamlit/secrets.toml`
+    2. Update the passwords with bcrypt hashes (run `python generate_password_hash.py`)
+    3. Add your `ANTHROPIC_API_KEY`
+
+    **For Streamlit Cloud:**
+    1. Go to your app settings → Secrets
+    2. Add the credentials configuration from `secrets.toml.example`
+    """)
+    st.stop()
 
 # --- Custom CSS Styling ---
 st.markdown("""
@@ -120,45 +155,34 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# --- Password Authentication ---
-def check_password():
-    """Returns True if user has entered correct password."""
+# --- Authentication ---
+credentials = get_credentials()
+if credentials is None:
+    show_missing_secrets_error()
 
-    def get_password():
-        """Get password from environment (local) or secrets (cloud)."""
-        key = os.environ.get("APP_PASSWORD")
-        if key:
-            return key
-        if hasattr(st, 'secrets') and "APP_PASSWORD" in st.secrets:
-            return st.secrets["APP_PASSWORD"]
-        return None
+authenticator = stauth.Authenticate(
+    credentials,
+    "ai_doc_hub_cookie",
+    "ai_doc_hub_key",
+    cookie_expiry_days=30
+)
 
-    if "authenticated" not in st.session_state:
-        st.session_state.authenticated = False
+# Show login form
+try:
+    authenticator.login()
+except Exception as e:
+    st.error(f"Authentication error: {e}")
 
-    if st.session_state.authenticated:
-        return True
-
+# Check authentication status
+if st.session_state.get("authentication_status") is None:
     st.title("AI Document Intelligence Hub")
     st.markdown("---")
-    st.subheader("Login Required")
-
-    password = st.text_input("Enter password:", type="password")
-
-    if st.button("Login"):
-        correct_password = get_password()
-        if correct_password is None:
-            st.error("Password not configured. Add APP_PASSWORD to .env or Streamlit secrets.")
-        elif password == correct_password:
-            st.session_state.authenticated = True
-            st.rerun()
-        else:
-            st.error("Incorrect password. Please try again.")
-
-    return False
-
-# Check authentication before showing main app
-if not check_password():
+    st.info("Please enter your username and password to continue.")
+    st.stop()
+elif st.session_state.get("authentication_status") is False:
+    st.title("AI Document Intelligence Hub")
+    st.markdown("---")
+    st.error("Username or password is incorrect.")
     st.stop()
 
 # --- Industry prompts ---
@@ -211,6 +235,12 @@ st.markdown("---")
 st.write("Upload a document, select your industry, and ask questions!!")
 
 st.sidebar.title("Settings")
+
+# Welcome message and logout
+st.sidebar.markdown(f"**Welcome, {st.session_state.get('name', 'User')}!**")
+authenticator.logout("Logout", "sidebar")
+st.sidebar.markdown("---")
+
 industry = st.sidebar.selectbox(
     "Select Industry Mode",
     list(INDUSTRY_PROMPTS.keys())
