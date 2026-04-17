@@ -178,11 +178,39 @@ if st.session_state.get("authentication_status") is None:
     st.title("AI Document Intelligence Hub")
     st.markdown("---")
     st.info("Please enter your username and password to continue.")
+
+    # Forgot password widget
+    st.markdown("---")
+    with st.expander("Forgot Password?"):
+        try:
+            username_forgot, email_forgot, new_password = authenticator.forgot_password()
+            if username_forgot:
+                st.success(f"New password generated for **{username_forgot}**")
+                st.info(f"Your new temporary password is: `{new_password}`")
+                st.warning("**Important:** This password is temporary. Please contact the administrator to update your credentials permanently.")
+            elif username_forgot is False:
+                st.error("Username not found.")
+        except Exception as e:
+            st.error(f"Error: {e}")
     st.stop()
 elif st.session_state.get("authentication_status") is False:
     st.title("AI Document Intelligence Hub")
     st.markdown("---")
     st.error("Username or password is incorrect.")
+
+    # Forgot password widget
+    st.markdown("---")
+    with st.expander("Forgot Password?"):
+        try:
+            username_forgot, email_forgot, new_password = authenticator.forgot_password()
+            if username_forgot:
+                st.success(f"New password generated for **{username_forgot}**")
+                st.info(f"Your new temporary password is: `{new_password}`")
+                st.warning("**Important:** This password is temporary. Please contact the administrator to update your credentials permanently.")
+            elif username_forgot is False:
+                st.error("Username not found.")
+        except Exception as e:
+            st.error(f"Error: {e}")
     st.stop()
 
 # --- Industry prompts ---
@@ -239,6 +267,16 @@ st.sidebar.title("Settings")
 # Welcome message and logout
 st.sidebar.markdown(f"**Welcome, {st.session_state.get('name', 'User')}!**")
 authenticator.logout("Logout", "sidebar")
+st.sidebar.markdown("---")
+
+# Password change section
+with st.sidebar.expander("Change Password"):
+    try:
+        if authenticator.reset_password(st.session_state["username"]):
+            st.success("Password changed successfully!")
+            st.warning("**Note:** Password changes are session-only. To make permanent, update your secrets.toml with the new hash.")
+    except Exception as e:
+        st.error(f"Error: {e}")
 st.sidebar.markdown("---")
 
 industry = st.sidebar.selectbox(
