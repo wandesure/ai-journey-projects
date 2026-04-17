@@ -13,7 +13,7 @@
 ---
 
 ## THE JOURNEY
-- **Programme:** Structured 40-week AI Skills Journey (started Week 1, currently Week 8)
+- **Programme:** Structured 40-week AI Skills Journey (started Week 1, Week 8 complete, starting Week 9)
 - **Starting point:** Zero prior programming experience
 - **Learning style:** Socratic method — concepts before code, explain every line before typing, no rabbit holes
 - **Sessions:** Saturday/Sunday 2-3 hours, weekdays 1.5-2 hours
@@ -21,8 +21,8 @@
 
 ---
 
-## CURRENT STATUS — Week 8 COMPLETE
-- **Phase:** Deployment + Claude Code + MCP (complete)
+## CURRENT STATUS — Week 8 COMPLETE, Week 9 READY
+- **Phase:** Deployment + Claude Code + MCP (complete) — moving to Authentication + Monetisation
 - **Live product:** AI Document Intelligence Hub (3 tabs)
 - **Live URL:** https://ai-journey-projects-4njztxymtqnlphnqshqsnc.streamlit.app
 - **GitHub:** github.com/wandesure/ai-journey-projects (public, 37+ commits)
@@ -156,5 +156,5 @@
 
 ---
 
-*Last updated: Week 8 complete, 15 April 2026*
+*Last updated: Week 8 complete, ready for Week 9 — 17 April 2026*
 *To update: add new milestones, update current status, note any decisions made*

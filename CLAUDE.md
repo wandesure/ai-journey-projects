@@ -26,9 +26,10 @@ streamlit run app.py
 All scripts require `ANTHROPIC_API_KEY` in a `.env` file:
 ```
 ANTHROPIC_API_KEY=your_key_here
+APP_PASSWORD=your_app_password_here
 ```
 
-The web app (`app.py`) also supports Streamlit secrets for cloud deployment.
+The web app (`app.py`) also supports Streamlit secrets for cloud deployment. For Streamlit Cloud, add both `ANTHROPIC_API_KEY` and `APP_PASSWORD` to your app secrets.
 
 ## Architecture
 
@@ -60,7 +61,7 @@ tools = [{"name": "...", "description": "...", "input_schema": {...}}]
 Both RAG systems support 5 industry modes (Telecom, Legal, Healthcare, HR, Finance) with specialized system prompts.
 
 **Tier 4 - Web Application**
-- `app.py` - Streamlit app with two tabs: Document Q&A and Compliance Checker
+- `app.py` - Streamlit app with password authentication and three tabs: Document Q&A, Compliance Checker, Document Summariser
 - Analyzes policies against NIST SP 800-53, ISO 27001, CIS Controls v8, SOC 2
 
 ### Key Dependencies

@@ -120,6 +120,47 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
+# --- Password Authentication ---
+def check_password():
+    """Returns True if user has entered correct password."""
+
+    def get_password():
+        """Get password from environment (local) or secrets (cloud)."""
+        key = os.environ.get("APP_PASSWORD")
+        if key:
+            return key
+        if hasattr(st, 'secrets') and "APP_PASSWORD" in st.secrets:
+            return st.secrets["APP_PASSWORD"]
+        return None
+
+    if "authenticated" not in st.session_state:
+        st.session_state.authenticated = False
+
+    if st.session_state.authenticated:
+        return True
+
+    st.title("AI Document Intelligence Hub")
+    st.markdown("---")
+    st.subheader("Login Required")
+
+    password = st.text_input("Enter password:", type="password")
+
+    if st.button("Login"):
+        correct_password = get_password()
+        if correct_password is None:
+            st.error("Password not configured. Add APP_PASSWORD to .env or Streamlit secrets.")
+        elif password == correct_password:
+            st.session_state.authenticated = True
+            st.rerun()
+        else:
+            st.error("Incorrect password. Please try again.")
+
+    return False
+
+# Check authentication before showing main app
+if not check_password():
+    st.stop()
+
 # --- Industry prompts ---
 INDUSTRY_PROMPTS = {
     "General": "You are a helpful document assistant. Answer questions accurately from the provided documents.",
