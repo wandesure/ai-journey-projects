@@ -3,7 +3,7 @@
 ### By Wande Oluwatomi
 📍 Calgary, Canada | 🐙 [github.com/wandesure](https://github.com/wandesure)
 
-A collection of AI-powered Python projects built from zero knowledge to production-ready applications in 8 weeks.
+A collection of AI-powered Python projects built from zero knowledge to production-ready applications in 9 weeks.
 
 ## Live Demo
 
@@ -47,6 +47,9 @@ A collection of AI-powered Python projects built from zero knowledge to producti
 | **Web & UI** | Streamlit, CSS Styling, Custom UI, Web Deployment |
 | **DevOps** | Environment Variables, dotenv Security, Error Handling |
 | **AI Tooling** | Claude Code, MCP (Model Context Protocol) |
+| **Authentication** | streamlit-authenticator, bcrypt Password Hashing, Session Management |
+| **Business Strategy** | Pricing Models, Ideal Client Profiles, Value Propositions |
+| **Client Outreach** | LinkedIn Messaging, Demo Scripts, Sales Enablement |
 
 ## Journey
 
@@ -62,6 +65,7 @@ Built during a structured 40-week AI Skills programme:
 | 6 | RAG Systems + Vector Databases |
 | 7 | Streamlit Web App + Deployment |
 | 8 | Claude Code + MCP Integration |
+| 9 | Authentication + Go-to-Market Strategy |
 
 ### Week 8 Achievements
 
@@ -70,3 +74,12 @@ Built during a structured 40-week AI Skills programme:
 - Added **Document Summariser** tab to web app
 - Applied **professional CSS theme** with custom styling
 - Created **BRAIN.md** context file for project documentation
+
+### Week 9 Achievements
+
+- Implemented **multi-user authentication** with streamlit-authenticator and bcrypt
+- Added **password change functionality** with secure session management
+- Created **pricing strategy document** with tiered deployment models
+- Developed **ideal client profile** targeting Canadian telecom compliance managers
+- Wrote **LinkedIn outreach messages** for prospect engagement
+- Built **demo script** with objection handling for sales conversations

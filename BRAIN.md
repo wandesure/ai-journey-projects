@@ -21,11 +21,11 @@
 
 ---
 
-## CURRENT STATUS — Week 8 COMPLETE, Week 9 READY
-- **Phase:** Deployment + Claude Code + MCP (complete) — moving to Authentication + Monetisation
-- **Live product:** AI Document Intelligence Hub (3 tabs)
+## CURRENT STATUS — Week 9 IN PROGRESS
+- **Phase:** Authentication + Go-to-Market Strategy
+- **Live product:** AI Document Intelligence Hub (3 tabs, multi-user auth)
 - **Live URL:** https://ai-journey-projects-4njztxymtqnlphnqshqsnc.streamlit.app
-- **GitHub:** github.com/wandesure/ai-journey-projects (public, 37+ commits)
+- **GitHub:** github.com/wandesure/ai-journey-projects (public, 40+ commits)
 
 ---
 
@@ -68,6 +68,15 @@
 - MCP connected — Google Drive accessible from Claude
 - App now has THREE tabs — Document Q&A, Compliance Checker, Document Summariser
 - LinkedIn post published showcasing live app
+
+### Phase 7: Authentication + Go-to-Market (Week 9 — IN PROGRESS)
+- Multi-user authentication with streamlit-authenticator + bcrypt password hashing
+- Password change functionality with secure session management
+- Pricing strategy document (tiered deployment models)
+- Industry value propositions (Telecom, Legal, Healthcare, HR, Finance)
+- Ideal client profile: Sarah Chen — Compliance Manager at regional Canadian telecom
+- LinkedIn outreach messages for prospect engagement
+- Demo script with objection handling for sales conversations
 
 ---
 
@@ -130,11 +139,10 @@
 
 ---
 
-## IMMEDIATE NEXT STEPS (Week 9)
-- Authentication for Streamlit app
-- User sessions
-- Pricing strategy exploration
-- First client outreach preparation
+## IMMEDIATE NEXT STEPS
+- Friday self test for Week 9
+- Complete Week 9 and update journey log
+- Week 10 planning
 
 ---
 
@@ -148,6 +156,16 @@
 
 ---
 
+## WEEK 9 ACHIEVEMENTS (IN PROGRESS)
+- Multi-user authentication shipped (streamlit-authenticator + bcrypt)
+- Password change/reset functionality
+- Pricing strategy with tiered deployment models
+- Ideal client profile (Sarah Chen persona)
+- LinkedIn outreach messages ready
+- Demo script with objection handling complete
+
+---
+
 ## REFERENCE DOCUMENTS IN PROJECT
 - `Claude_API_CheatSheet_v2.docx` — living reference guide (Anthropic keywords, Python errors, agent pattern)
 - `Git_GitHub_CheatSheet.docx` — Git commands reference
@@ -156,5 +174,5 @@
 
 ---
 
-*Last updated: Week 8 complete, ready for Week 9 — 17 April 2026*
+*Last updated: Week 9 in progress — 20 April 2026*
 *To update: add new milestones, update current status, note any decisions made*
