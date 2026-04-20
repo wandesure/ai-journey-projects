@@ -103,6 +103,19 @@ Transform your document workflows with AI-powered analysis that delivers instant
 
 ---
 
+## Deployment Model
+
+Every client receives a **private, custom deployment** of the AI Document Intelligence Hub:
+
+- **Dedicated Instance**: Your deployment runs independently, not on shared infrastructure
+- **Custom Branding**: Your logo, colors, and domain (e.g., docs.yourcompany.com)
+- **Data Isolation**: Your documents and analyses are stored separately from all other clients
+- **Separate from Portfolio**: The public demo at [ai-journey-projects](https://ai-journey-projects-4njztxymtqnlphnqshqsnc.streamlit.app) showcases capabilities only; client deployments are completely independent private instances with no shared data or access
+
+This architecture ensures complete data privacy and allows full customization to match your organization's requirements and brand identity.
+
+---
+
 ## Getting Started
 
 1. **Schedule a Demo**: See the platform in action with your own documents
