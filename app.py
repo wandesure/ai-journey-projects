@@ -156,6 +156,8 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # --- Authentication ---
+# NOTE: Password changes/resets are session-only and not persisted to secrets.toml.
+# This is a known limitation to be addressed with database integration in a future version.
 credentials = get_credentials()
 if credentials is None:
     show_missing_secrets_error()
