@@ -5,7 +5,8 @@
       "Bash(timeout 5 streamlit run app.py --server.headless true)",
       "Bash(pip install *)",
       "Bash(timeout 10 streamlit run app.py --server.headless true)",
-      "Bash(timeout 8 streamlit run app.py --server.headless true)"
+      "Bash(timeout 8 streamlit run app.py --server.headless true)",
+      "Bash(streamlit run *)"
     ]
   }
 }

@@ -310,7 +310,7 @@ st.sidebar.write(f"Active mode: {industry}")
 
 
 # --- Tabs ---
-tab1, tab2, tab3 = st.tabs(["Document Q&A", "Compliance Checker", "Document Summariser"])
+tab1, tab2, tab3, tab4 = st.tabs(["Document Q&A", "Compliance Checker", "Document Summariser", "Document Comparison"])
 
 with tab1:
     uploaded_file = st.file_uploader(
@@ -444,6 +444,106 @@ Format your response clearly with headers and bullet points for easy reading."""
                         st.markdown(response.content[0].text)
                     except Exception as e:
                         st.error(f"Error: {e}")
+
+with tab4:
+    st.write("### Document Comparison")
+    st.write("Upload two documents to get a detailed gap analysis comparing their content.")
+
+    col1, col2 = st.columns(2)
+
+    with col1:
+        st.write("**Document 1**")
+        compare_file1 = st.file_uploader(
+            "Upload first document (PDF or TXT)",
+            type=["txt", "pdf"],
+            key="compare_uploader_1"
+        )
+
+    with col2:
+        st.write("**Document 2**")
+        compare_file2 = st.file_uploader(
+            "Upload second document (PDF or TXT)",
+            type=["txt", "pdf"],
+            key="compare_uploader_2"
+        )
+
+    def extract_text(uploaded_file):
+        """Extract text from uploaded PDF or TXT file."""
+        if uploaded_file is None:
+            return None
+        if uploaded_file.type == "application/pdf":
+            try:
+                import pypdf
+                reader = pypdf.PdfReader(uploaded_file)
+                text = ""
+                for page in reader.pages:
+                    text += page.extract_text()
+                return text
+            except Exception as e:
+                st.error(f"Error reading PDF: {e}")
+                return None
+        else:
+            return uploaded_file.read().decode("utf-8")
+
+    if compare_file1 and compare_file2:
+        doc1_text = extract_text(compare_file1)
+        doc2_text = extract_text(compare_file2)
+
+        if doc1_text and doc2_text:
+            st.success(f"Documents ready: **{compare_file1.name}** and **{compare_file2.name}**")
+
+            if st.button("Compare Documents"):
+                api_key = get_api_key()
+                if not api_key:
+                    st.error("API key not configured. Please set ANTHROPIC_API_KEY in your .env file or Streamlit secrets.")
+                else:
+                    with st.spinner("Analysing documents and generating gap analysis..."):
+                        try:
+                            comparison_prompt = """You are an expert telecom compliance analyst with deep knowledge of CRTC regulations, PIPEDA, and telecommunications industry standards.
+
+When comparing two documents, provide a comprehensive gap analysis with the following structure:
+
+## Gap Analysis Summary
+Provide a 2-3 sentence executive summary of the key differences.
+
+## Unique to Document 1
+List specific policies, requirements, clauses, or content that appear ONLY in Document 1 but are missing from Document 2. Use bullet points and be specific about what is covered.
+
+## Unique to Document 2
+List specific policies, requirements, clauses, or content that appear ONLY in Document 2 but are missing from Document 1. Use bullet points and be specific about what is covered.
+
+## Common Elements
+List the key themes, policies, or requirements that BOTH documents share. Note any differences in how they address the same topics.
+
+## Recommendations
+Based on your telecom compliance expertise, provide specific recommendations for addressing the gaps identified. Consider regulatory implications where applicable.
+
+Be thorough and specific in your analysis. Reference actual content from the documents rather than making general statements."""
+
+                            client = Anthropic(api_key=api_key)
+                            response = client.messages.create(
+                                model="claude-opus-4-6",
+                                max_tokens=4096,
+                                system=comparison_prompt,
+                                messages=[{
+                                    "role": "user",
+                                    "content": f"""Please compare these two documents and provide a detailed gap analysis.
+
+**Document 1: {compare_file1.name}**
+{doc1_text[:4000]}
+
+---
+
+**Document 2: {compare_file2.name}**
+{doc2_text[:4000]}"""
+                                }]
+                            )
+                            st.write("### Gap Analysis Results")
+                            st.markdown(response.content[0].text)
+                        except Exception as e:
+                            st.error(f"Error: {e}")
+    elif compare_file1 or compare_file2:
+        st.info("Please upload both documents to perform the comparison.")
 
 # Footer
 st.markdown("---")
