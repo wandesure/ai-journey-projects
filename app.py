@@ -3,20 +3,33 @@ import streamlit_authenticator as stauth
 import os
 from anthropic import Anthropic
 from dotenv import load_dotenv
+import db_auth
 
 load_dotenv()
 
 # --- Authentication Configuration ---
 def get_credentials():
-    """Get credentials from Streamlit secrets. Returns None if not configured."""
-    if not hasattr(st, 'secrets') or "credentials" not in st.secrets:
-        return None
+    """
+    Get credentials from SQLite database.
+    On first run, seeds from Streamlit secrets if database is empty.
+    """
+    # Seed database from secrets on first run
+    if not db_auth.db_exists():
+        if hasattr(st, 'secrets') and "credentials" in st.secrets:
+            secrets_creds = {
+                "usernames": {
+                    username: dict(data)
+                    for username, data in st.secrets["credentials"]["usernames"].items()
+                }
+            }
+            db_auth.seed_from_secrets(secrets_creds)
+        else:
+            return None
 
-    credentials = dict(st.secrets["credentials"])
-    credentials["usernames"] = {
-        username: dict(data)
-        for username, data in st.secrets["credentials"]["usernames"].items()
-    }
+    # Load credentials from SQLite
+    credentials = db_auth.get_all_users()
+    if not credentials["usernames"]:
+        return None
     return credentials
 
 def show_missing_secrets_error():
@@ -156,8 +169,6 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # --- Authentication ---
-# NOTE: Password changes/resets are session-only and not persisted to secrets.toml.
-# This is a known limitation to be addressed with database integration in a future version.
 credentials = get_credentials()
 if credentials is None:
     show_missing_secrets_error()
@@ -187,9 +198,12 @@ if st.session_state.get("authentication_status") is None:
         try:
             username_forgot, email_forgot, new_password = authenticator.forgot_password()
             if username_forgot:
+                # Persist the new password hash to SQLite
+                new_hash = credentials["usernames"][username_forgot]["password"]
+                db_auth.update_password(username_forgot, new_hash)
                 st.success(f"New password generated for **{username_forgot}**")
                 st.info(f"Your new temporary password is: `{new_password}`")
-                st.warning("**Important:** This password is temporary. Please contact the administrator to update your credentials permanently.")
+                st.warning("**Important:** Please change this password after logging in.")
             elif username_forgot is False:
                 st.error("Username not found.")
         except Exception as e:
@@ -206,9 +220,12 @@ elif st.session_state.get("authentication_status") is False:
         try:
             username_forgot, email_forgot, new_password = authenticator.forgot_password()
             if username_forgot:
+                # Persist the new password hash to SQLite
+                new_hash = credentials["usernames"][username_forgot]["password"]
+                db_auth.update_password(username_forgot, new_hash)
                 st.success(f"New password generated for **{username_forgot}**")
                 st.info(f"Your new temporary password is: `{new_password}`")
-                st.warning("**Important:** This password is temporary. Please contact the administrator to update your credentials permanently.")
+                st.warning("**Important:** Please change this password after logging in.")
             elif username_forgot is False:
                 st.error("Username not found.")
         except Exception as e:
@@ -275,8 +292,11 @@ st.sidebar.markdown("---")
 with st.sidebar.expander("Change Password"):
     try:
         if authenticator.reset_password(st.session_state["username"]):
-            st.success("Password changed successfully!")
-            st.warning("**Note:** Password changes are session-only. To make permanent, update your secrets.toml with the new hash.")
+            # Persist the new password hash to SQLite
+            username = st.session_state["username"]
+            new_hash = credentials["usernames"][username]["password"]
+            db_auth.update_password(username, new_hash)
+            st.success("Password changed and saved!")
     except Exception as e:
         st.error(f"Error: {e}")
 st.sidebar.markdown("---")

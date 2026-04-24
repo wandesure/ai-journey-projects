@@ -2,6 +2,7 @@
 sample.txt
 .env
 .streamlit/secrets.toml
+users.db
 # Python auto-generated files
 __pycache__/
 
