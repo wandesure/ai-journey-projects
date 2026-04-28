@@ -307,7 +307,20 @@ industry = st.sidebar.selectbox(
 )
 st.sidebar.write(f"Active mode: {industry}")
 
+# --- About Section ---
+st.sidebar.markdown("---")
+st.sidebar.markdown("### About")
+st.sidebar.markdown("""
+**AI Document Intelligence Hub** is an enterprise-grade tool for document analysis,
+compliance checking, and gap analysis against major security frameworks.
 
+**Built by Wande Oluwatomi**
+CISSP | CCSP | CGRC | PMP
+
+**Contact:** wande.oluwatomi@gmail.com
+
+*Book a demo - reply to your LinkedIn message or email directly*
+""")
 
 # --- Tabs ---
 tab1, tab2, tab3, tab4 = st.tabs(["Document Q&A", "Compliance Checker", "Document Summariser", "Document Comparison"])
