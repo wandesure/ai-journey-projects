@@ -3,7 +3,7 @@
 ### By Wande Oluwatomi
 📍 Calgary, Canada | 🐙 [github.com/wandesure](https://github.com/wandesure)
 
-A collection of AI-powered Python projects built from zero knowledge to production-ready applications in 9 weeks.
+A collection of AI-powered Python projects built from zero knowledge to production-ready applications in 10 weeks.
 
 ## Live Demo
 
@@ -48,8 +48,9 @@ A collection of AI-powered Python projects built from zero knowledge to producti
 | **DevOps** | Environment Variables, dotenv Security, Error Handling |
 | **AI Tooling** | Claude Code, MCP (Model Context Protocol) |
 | **Authentication** | streamlit-authenticator, bcrypt Password Hashing, Session Management |
+| **Data Persistence** | SQLite, Database Integration, Credential Storage |
 | **Business Strategy** | Pricing Models, Ideal Client Profiles, Value Propositions |
-| **Client Outreach** | LinkedIn Messaging, Demo Scripts, Sales Enablement |
+| **Client Outreach** | LinkedIn Messaging, Demo Scripts, Sales Enablement, Response Strategy |
 
 ## Journey
 
@@ -66,6 +67,7 @@ Built during a structured 40-week AI Skills programme:
 | 7 | Streamlit Web App + Deployment |
 | 8 | Claude Code + MCP Integration |
 | 9 | Authentication + Go-to-Market Strategy |
+| 10 | Database Integration + Client Outreach |
 
 ### Week 8 Achievements
 
@@ -83,3 +85,11 @@ Built during a structured 40-week AI Skills programme:
 - Developed **ideal client profile** targeting Canadian telecom compliance managers
 - Wrote **LinkedIn outreach messages** for prospect engagement
 - Built **demo script** with objection handling for sales conversations
+
+### Week 10 Achievements
+
+- Implemented **SQLite database** for persistent credential storage
+- Added **Document Comparison tab** with gap analysis functionality
+- Created **About section** with credentials in sidebar
+- Sent **first client outreach** message to prospect
+- Developed **response strategy document** for prospect follow-up

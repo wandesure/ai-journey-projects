@@ -13,7 +13,7 @@
 ---
 
 ## THE JOURNEY
-- **Programme:** Structured 40-week AI Skills Journey (started Week 1, Week 8 complete, starting Week 9)
+- **Programme:** Structured 40-week AI Skills Journey (started Week 1, Week 9 complete, Week 10 in progress)
 - **Starting point:** Zero prior programming experience
 - **Learning style:** Socratic method — concepts before code, explain every line before typing, no rabbit holes
 - **Sessions:** Saturday/Sunday 2-3 hours, weekdays 1.5-2 hours
@@ -21,11 +21,11 @@
 
 ---
 
-## CURRENT STATUS — Week 9 IN PROGRESS
-- **Phase:** Authentication + Go-to-Market Strategy
-- **Live product:** AI Document Intelligence Hub (3 tabs, multi-user auth)
+## CURRENT STATUS — Week 10 IN PROGRESS
+- **Phase:** Database Integration + Client Outreach
+- **Live product:** AI Document Intelligence Hub (4 tabs, multi-user auth, SQLite backend)
 - **Live URL:** https://ai-journey-projects-4njztxymtqnlphnqshqsnc.streamlit.app
-- **GitHub:** github.com/wandesure/ai-journey-projects (public, 40+ commits)
+- **GitHub:** github.com/wandesure/ai-journey-projects (public, 45+ commits)
 
 ---
 
@@ -69,7 +69,7 @@
 - App now has THREE tabs — Document Q&A, Compliance Checker, Document Summariser
 - LinkedIn post published showcasing live app
 
-### Phase 7: Authentication + Go-to-Market (Week 9 — IN PROGRESS)
+### Phase 7: Authentication + Go-to-Market (Week 9 — COMPLETE)
 - Multi-user authentication with streamlit-authenticator + bcrypt password hashing
 - Password change functionality with secure session management
 - Pricing strategy document (tiered deployment models)
@@ -77,6 +77,13 @@
 - Ideal client profile: Sarah Chen — Compliance Manager at regional Canadian telecom
 - LinkedIn outreach messages for prospect engagement
 - Demo script with objection handling for sales conversations
+
+### Phase 8: Database Integration + Client Outreach (Week 10 — IN PROGRESS)
+- SQLite database for persistent credential storage
+- Document Comparison tab with gap analysis functionality
+- About section with credentials added to sidebar
+- First LinkedIn outreach message sent to prospect
+- Response strategy document created for prospect follow-up
 
 ---
 
@@ -95,7 +102,7 @@
 ---
 
 ## KEY FILES
-- `app.py` — main Streamlit web app (THREE tabs: Document Q&A, Compliance Checker, Document Summariser)
+- `app.py` — main Streamlit web app (FOUR tabs: Document Q&A, Compliance Checker, Document Summariser, Document Comparison)
 - `compliance_checker.py` — standalone CLI compliance checker
 - `doc_intelligence.py` — standalone RAG document assistant
 - `doc_intelligence_lc.py` — LangChain version of RAG assistant
@@ -140,9 +147,9 @@
 ---
 
 ## IMMEDIATE NEXT STEPS
-- Friday self test for Week 9
-- Complete Week 9 and update journey log
-- Week 10 planning
+- Friday self test for Week 10
+- Complete Week 10 and update journey log
+- Week 11 planning
 
 ---
 
@@ -156,13 +163,22 @@
 
 ---
 
-## WEEK 9 ACHIEVEMENTS (IN PROGRESS)
+## WEEK 9 ACHIEVEMENTS (COMPLETE)
 - Multi-user authentication shipped (streamlit-authenticator + bcrypt)
 - Password change/reset functionality
 - Pricing strategy with tiered deployment models
 - Ideal client profile (Sarah Chen persona)
 - LinkedIn outreach messages ready
 - Demo script with objection handling complete
+
+---
+
+## WEEK 10 ACHIEVEMENTS (IN PROGRESS)
+- SQLite database for persistent credential storage
+- Document Comparison tab with gap analysis (4 tabs now live)
+- About section with credentials added to sidebar
+- First LinkedIn outreach message sent
+- Response strategy document created
 
 ---
 
@@ -174,5 +190,5 @@
 
 ---
 
-*Last updated: Week 9 in progress — 20 April 2026*
+*Last updated: Week 10 in progress — 30 April 2026*
 *To update: add new milestones, update current status, note any decisions made*
